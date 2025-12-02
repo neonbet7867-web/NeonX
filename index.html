@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- CHANGE: Zoom badhane ke liye width 800 kar di (Best for Mobile + Desktop view) -->
-    <meta name="viewport" content="width=800">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Abhishek Sharma - Professional Full Stack Developer</title>
     <!-- Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -26,9 +25,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
-        
-        /* CHANGE: Body ki width fix kar di taaki layout toote nahi */
-        body { background-color: var(--white); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; min-width: 800px; }
+        body { background-color: var(--white); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
 
         /* Animation Classes */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
@@ -36,9 +33,7 @@
 
         /* Header */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; 
-            /* CHANGE: Side padding thodi kam ki taaki content fail sake */
-            padding: 1rem 3%;
+            position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 10%;
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
             display: flex; justify-content: space-between; align-items: center; 
             z-index: 1000; box-shadow: 0 4px 30px rgba(0,0,0,0.03); border-bottom: 1px solid rgba(0,0,0,0.05);
@@ -46,7 +41,7 @@
         .logo { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); text-decoration: none; letter-spacing: -0.5px; }
         .navbar a {
             font-size: 1rem; color: var(--text-dark); text-decoration: none;
-            margin-left: 2rem; font-weight: 600; transition: 0.3s;
+            margin-left: 2.5rem; font-weight: 600; transition: 0.3s;
         }
         .navbar a:hover, .navbar a.active { color: var(--primary-blue); }
         .hire-btn { background: var(--primary-blue); color: white !important; padding: 12px 28px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); transition: 0.3s; }
@@ -55,21 +50,17 @@
         /* Hero Section */
         .home-container {
             display: flex; align-items: center; justify-content: space-between;
-            min-height: 100vh; 
-            /* CHANGE: Padding adjust ki taaki mobile pe cut na ho */
-            padding: 120px 3% 50px; 
+            min-height: 100vh; padding: 120px 10% 50px; 
             background: radial-gradient(circle at top right, #eff6ff 0%, #fff 40%);
         }
-        .home-content h1 { font-size: 3.8rem; font-weight: 800; line-height: 1.1; margin: 20px 0; color: #1e293b; letter-spacing: -1px; }
+        .home-content h1 { font-size: 4.2rem; font-weight: 800; line-height: 1.1; margin: 20px 0; color: #1e293b; letter-spacing: -1px; }
         
         .home-content h3 { font-size: 1.5rem; font-weight: 600; }
         .home-content span { color: var(--primary-blue); } 
         
-        .home-content p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 35px; max-width: 550px; }
-        
-        /* CHANGE: Image size thoda adjust kiya taaki side-by-side fit ho */
+        .home-content p { font-size: 1.25rem; color: var(--text-gray); margin-bottom: 35px; max-width: 600px; }
         .home-img img {
-            width: 380px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            width: 450px; border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             box-shadow: 20px 20px 60px rgba(37, 99, 235, 0.15); animation: float 6s ease-in-out infinite;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
@@ -89,13 +80,13 @@
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         /* Expertise Section */
-        .expertise-section { padding: 100px 3%; text-align: center; background: #fff; }
+        .expertise-section { padding: 100px 10%; text-align: center; background: #fff; }
         .section-header h2 { font-size: 2.8rem; margin-bottom: 15px; font-family: 'Gabarito', sans-serif; color: #0f172a; }
         .section-header p { margin-bottom: 70px; color: var(--text-gray); max-width: 600px; margin-left: auto; margin-right: auto; font-size: 1.1rem; }
         
         .cards-container { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; }
         .srv-card {
-            flex: 1; min-width: 250px; padding: 45px; border-radius: 24px; text-align: left;
+            flex: 1; min-width: 300px; padding: 45px; border-radius: 24px; text-align: left;
             position: relative; overflow: hidden; height: 380px; display: flex; flex-direction: column; justify-content: space-between;
             transition: all 0.4s ease; border: 1px solid transparent;
         }
@@ -106,10 +97,10 @@
         .card-light { background-color: var(--light-gray); color: #1f2937; border: 1px solid #e2e8f0; }
 
         /* --- NEW: What I Can Build Section --- */
-        .build-section { padding: 100px 3%; background: #f8fafc; }
+        .build-section { padding: 100px 10%; background: #f8fafc; }
         .build-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 30px; 
             margin-top: 50px; 
         }
@@ -137,7 +128,7 @@
         .build-btn:hover { gap: 10px; color: var(--primary-blue); }
 
         /* Portfolio Section */
-        .portfolio-section { padding: 100px 3%; background: #fff; } 
+        .portfolio-section { padding: 100px 10%; background: #fff; } /* Changed to white to alternate */
         
         .work-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
         .work-tab { 
@@ -147,7 +138,7 @@
         .work-tab.active, .work-tab:hover { background: var(--primary-blue); color: white; border-color: var(--primary-blue); box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2); }
 
         .project-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
             gap: 40px; margin-top: 30px; 
         }
 
@@ -188,7 +179,7 @@
         .project-link:hover { color: var(--primary-blue); gap: 12px; }
 
         /* Workflow Section */
-        .workflow-section { display: flex; align-items: center; background: #fff; padding: 100px 3%; gap: 60px; }
+        .workflow-section { display: flex; align-items: center; background: #fff; padding: 100px 10%; gap: 80px; }
         .workflow-text { flex: 1; }
         .workflow-text h2 { font-size: 3rem; line-height: 1.2; margin-bottom: 30px; font-weight: 700; }
         .step { display: flex; gap: 25px; margin-bottom: 40px; }
@@ -199,13 +190,13 @@
         .workflow-img img { width: 100%; border-radius: 24px; box-shadow: 0 25px 60px rgba(0,0,0,0.12); }
 
         /* Stats Section */
-        .stats-section { background: var(--dark-teal); padding: 80px 3%; color: white; display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center; }
+        .stats-section { background: var(--dark-teal); padding: 80px 10%; color: white; display: flex; justify-content: space-around; flex-wrap: wrap; text-align: center; }
         .stat-item { padding: 20px; }
         .stat-num { font-size: 3.5rem; font-weight: 700; color: var(--primary-blue); display: block; margin-bottom: 5px; }
         .stat-label { font-size: 1.2rem; opacity: 0.7; font-weight: 500; }
 
         /* Testimonials */
-        .testimonials-section { padding: 100px 3%; background: #fff; text-align: center; }
+        .testimonials-section { padding: 100px 10%; background: #fff; text-align: center; }
         .testi-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 60px; }
         .testi-card { background: #f8fafc; padding: 45px; border-radius: 20px; width: 380px; text-align: left; position: relative; transition: 0.3s; border: 1px solid #f1f5f9; }
         .testi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
@@ -215,7 +206,7 @@
         .client-img { width: 55px; height: 55px; border-radius: 50%; background: #ddd; object-fit: cover; }
 
         /* FAQ */
-        .faq-section { padding: 80px 3%; background: #fff; max-width: 900px; margin: 0 auto; }
+        .faq-section { padding: 80px 10%; background: #fff; max-width: 900px; margin: 0 auto; }
         .faq-item { border-bottom: 1px solid #e2e8f0; padding: 25px 0; }
         .faq-question { font-size: 1.25rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #1e293b; }
         .faq-answer { display: none; margin-top: 15px; color: #64748b; line-height: 1.7; font-size: 1.05rem; }
@@ -224,7 +215,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Footer */
-        footer { background: #0f172a; color: #94a3b8; padding: 90px 3% 30px; font-size: 1rem; }
+        footer { background: #0f172a; color: #94a3b8; padding: 90px 10% 30px; font-size: 1rem; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 60px; margin-bottom: 70px; }
         .footer-col h4 { font-size: 1.2rem; margin-bottom: 25px; color: #fff; font-weight: 700; }
         .footer-col ul { list-style: none; }
@@ -238,7 +229,15 @@
         .modal-content { background: white; padding: 50px; border-radius: 16px; width: 400px; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.25); }
         .modal input { width: 100%; padding: 14px; margin: 12px 0; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 1rem; }
 
-        /* NO MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .home-container, .workflow-section { flex-direction: column; text-align: center; padding-top: 120px; }
+            .home-img img, .workflow-img img { width: 100%; margin-top: 50px; }
+            .navbar { display: none; }
+            .workflow-text { text-align: left; }
+            .project-grid { grid-template-columns: 1fr; }
+            .stats-section { gap: 40px; }
+            .home-content h1 { font-size: 2.8rem; }
+        }
     </style>
 </head>
 <body>
