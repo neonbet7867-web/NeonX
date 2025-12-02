@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing & Template Store - Web Design</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --secondary: #0f172a;
+            --accent: #06b6d4;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-gray: #64748b;
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+            --card-radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg-light); color: var(--secondary); line-height: 1.6; }
+
+        /* --- HEADER --- */
+        header {
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            position: fixed; top: 0; width: 100%; padding: 1rem 10%; z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        
+        .nav-links { display: flex; align-items: center; }
+        .nav-links a { margin-left: 25px; text-decoration: none; color: var(--secondary); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .hire-btn { background: var(--primary); color: white !important; padding: 10px 25px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3); }
+
+        /* --- HERO --- */
+        .hero { padding: 140px 10% 80px; text-align: center; background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%); }
+        .hero h1 { font-family: 'Poppins', sans-serif; font-size: 3rem; font-weight: 700; color: var(--secondary); margin-bottom: 15px; }
+        .badge { background: #dbeafe; color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; display: inline-block; margin-bottom: 15px; }
+
+        /* --- PRICING --- */
+        .pricing-section { padding: 50px 10%; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .price-card {
+            background: var(--white); border-radius: var(--card-radius); padding: 40px 30px;
+            box-shadow: var(--shadow); border: 1px solid #e2e8f0; position: relative; overflow: hidden;
+            transition: transform 0.3s ease; display: flex; flex-direction: column;
+        }
+        .price-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .price-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: linear-gradient(90deg, var(--primary), var(--accent)); }
+        .plan-price { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 20px; }
+        .features-list { list-style: none; margin-bottom: 30px; flex-grow: 1; }
+        .features-list li { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-gray); display: flex; align-items: center; gap: 10px; }
+        .btn-full { display: block; width: 100%; padding: 14px; text-align: center; background: var(--secondary); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s; }
+        .btn-full:hover { background: var(--primary); }
+        .price-card.popular { background: #fff; border: 2px solid var(--primary); transform: scale(1.05); }
+
+        /* --- TEMPLATE CATALOG --- */
+        .catalog-section { padding: 80px 10%; background: #ffffff; }
+        .template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .template-card {
+            background: white; border: 1px solid #f1f5f9; border-radius: 16px; overflow: hidden;
+            transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); display: flex; flex-direction: column; position: relative;
+        }
+        .template-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .t-image-container { position: relative; height: 200px; background: #eee; overflow: hidden; cursor: pointer; }
+        .t-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .template-card:hover .t-img { transform: scale(1.05); }
+        .t-price-tag { position: absolute; bottom: 10px; right: 10px; background: rgba(15, 23, 42, 0.9); color: white; padding: 5px 12px; border-radius: 6px; font-weight: 700; font-size: 0.9rem; }
+        .t-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .t-title { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin-bottom: 10px; }
+        .t-features { margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .t-badge { font-size: 0.75rem; background: #eff6ff; color: var(--primary); padding: 4px 10px; border-radius: 4px; font-weight: 600; }
+        .t-actions { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-demo { border: 1px solid var(--primary); color: var(--primary); text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; cursor: pointer; }
+        .btn-demo:hover { background: #eff6ff; }
+        .btn-buy { background: var(--primary); color: white; text-align: center; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+
+        /* DELETE BUTTON STYLE */
+        .delete-btn {
+            position: absolute; top: 10px; right: 10px; z-index: 100;
+            background: #ef4444; color: white; border: none; padding: 8px;
+            border-radius: 50%; cursor: pointer; font-size: 14px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            display: none; /* Hidden by default */
+        }
+        .delete-btn:hover { background: #dc2626; transform: scale(1.1); }
+
+        /* --- MODALS (Gallery + Admin) --- */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
+        .modal-content { max-width: 90%; max-height: 80vh; object-fit: contain; }
+        .modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
+        .modal-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 50px; transform: translateY(-50%); }
+        .modal-btn { background: rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 50%; cursor: pointer; border: none; font-size: 20px; }
+
+        /* Admin Form Modal Styles */
+        .form-box { background: white; padding: 30px; border-radius: 12px; width: 400px; max-width: 90%; }
+        .form-box h3 { margin-bottom: 20px; color: var(--secondary); }
+        .form-input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .form-btn { width: 100%; background: var(--primary); color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; }
+
+        /* --- CTA & FOOTER --- */
+        .cta-section { padding: 80px 10%; text-align: center; }
+        .cta-box { background: linear-gradient(135deg, var(--primary), #3730a3); border-radius: 24px; padding: 60px 20px; color: white; }
+        .whatsapp-btn { background: #25D366; color: white; padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; }
+
+        .admin-trigger { font-size: 0.8rem; color: #ccc; cursor: pointer; text-decoration: none; margin-top: 20px; display: inline-block; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            header { padding: 1rem 5%; }
+            .pricing-section, .catalog-section { padding: 50px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="index.html" class="logo">DevStudio.</a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="pricing.html" class="active">Pricing</a>
+            <a href="contact.html">Contact</a>
+            <a href="hire.html" class="hire-btn">Hire Me</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <span class="badge">🚀 Launch Your Business Online</span>
+        <h1>Affordable Websites & <br>Premium Templates</h1>
+        <p>I build clean, modern, and fast-loading websites tailored for small businesses.</p>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="pricing-section">
+        <h2 style="text-align:center; margin-bottom:40px;">Custom Plans</h2>
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3 class="plan-name">Starter</h3>
+                <div class="plan-price">₹1,499</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> 1 Page Website</li>
+                    <li><i class="fas fa-check"></i> Mobile Responsive</li>
+                    <li><i class="fas fa-check"></i> Contact Button</li>
+                </ul>
+                <a href="contact.html" class="btn-full">Choose Starter</a>
+            </div>
+            <div class="price-card popular">
+                <h3 class="plan-name">Professional</h3>
+                <div class="plan-price">₹2,999</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> 5 Pages Website</li>
+                    <li><i class="fas fa-check"></i> Basic SEO</li>
+                    <li><i class="fas fa-check"></i> Contact Form</li>
+                </ul>
+                <a href="contact.html" class="btn-full" style="background:var(--primary)">Choose Professional</a>
+            </div>
+            <div class="price-card">
+                <h3 class="plan-name">Premium</h3>
+                <div class="plan-price">₹4,999</div>
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> 10 Pages Website</li>
+                    <li><i class="fas fa-check"></i> Animations</li>
+                    <li><i class="fas fa-check"></i> Speed Boost</li>
+                </ul>
+                <a href="contact.html" class="btn-full">Choose Premium</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEMPLATE CATALOG -->
+    <section id="catalog" class="catalog-section">
+        <h2 style="text-align:center; margin-bottom:10px;">Ready-Made Templates</h2>
+        <p style="text-align:center; color:#666; margin-bottom:40px;">Browse my collection. Click "View Photos" to see details.</p>
+
+        <!-- Template Grid (Populated by JS) -->
+        <div class="template-grid" id="templateGrid"></div>
+    </section>
+
+    <!-- CTA & FOOTER -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h2>Start Your Website Today</h2>
+            <p>Ready to take your business online?</p>
+            <a href="contact.html" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+        </div>
+        
+        <!-- HIDDEN ADMIN BUTTON -->
+        <div style="margin-top: 50px;">
+            <span class="admin-trigger" onclick="openAdminLogin()">Admin Access (Edit/Delete)</span>
+        </div>
+    </section>
+
+    <!-- ================= MODALS ================= -->
+
+    <!-- 1. PHOTO GALLERY MODAL -->
+    <div id="photoModal" class="modal">
+        <span class="modal-close" onclick="document.getElementById('photoModal').style.display='none'">&times;</span>
+        <img class="modal-content" id="modalImg">
+        <div class="modal-nav">
+            <button class="modal-btn" onclick="prevImage()"><i class="fas fa-chevron-left"></i></button>
+            <button class="modal-btn" onclick="nextImage()"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- 2. ADMIN LOGIN MODAL -->
+    <div id="loginModal" class="modal" style="background-color: rgba(0,0,0,0.8);">
+        <div class="form-box">
+            <h3>Admin Login</h3>
+            <input type="password" id="adminPass" class="form-input" placeholder="Enter Password">
+            <button class="form-btn" onclick="checkLogin()">Login</button>
+            <button onclick="document.getElementById('loginModal').style.display='none'" style="margin-top:10px; background:none; border:none; cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+
+    <!-- 3. ADD TEMPLATE FORM MODAL -->
+    <div id="addModal" class="modal" style="background-color: rgba(0,0,0,0.8);">
+        <div class="form-box">
+            <h3>Add New Website</h3>
+            <input type="text" id="newTitle" class="form-input" placeholder="Website Name">
+            <input type="text" id="newPrice" class="form-input" placeholder="Price (e.g. ₹2,500)">
+            <input type="text" id="newCover" class="form-input" placeholder="Cover Image URL">
+            <textarea id="newFeatures" class="form-input" placeholder="Features (comma separated: Clean, Fast, SEO)"></textarea>
+            <textarea id="newGallery" class="form-input" placeholder="Gallery URLs (comma separated)"></textarea>
+            <button class="form-btn" onclick="addNewTemplate()">Add Website</button>
+            <button onclick="document.getElementById('addModal').style.display='none'" style="margin-top:10px; background:none; border:none; cursor:pointer;">Close</button>
+        </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        // --- DATA SECTION ---
+        let templates = [
+            {
+                title: "Modern Corporate Agency",
+                price: "₹1,999",
+                cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500",
+                features: ["5 Pages", "Blue Theme", "Contact Form"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200",
+                    "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=1200"
+                ]
+            },
+            {
+                title: "Creative Portfolio",
+                price: "₹1,499",
+                cover: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500",
+                features: ["One Page", "Dark Mode", "Gallery"],
+                gallery: [
+                    "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=1200"
+                ]
+            }
+        ];
+
+        let isAdmin = false; // State to track login
+
+        // --- RENDER FUNCTION ---
+        const grid = document.getElementById('templateGrid');
+        
+        function renderTemplates() {
+            grid.innerHTML = "";
+            templates.forEach((item, index) => {
+                let featuresHtml = item.features.map(f => `<span class="t-badge">${f.trim()}</span>`).join('');
+                
+                // Show delete button only if Admin
+                let deleteBtnHtml = isAdmin ? 
+                    `<button class="delete-btn" style="display:block" onclick="deleteTemplate(${index}, event)">
+                        <i class="fas fa-trash"></i>
+                     </button>` 
+                    : '';
+
+                let card = `
+                    <div class="template-card">
+                        ${deleteBtnHtml}
+                        <div class="t-image-container" onclick="openGallery(${index})">
+                            <img src="${item.cover}" alt="${item.title}" class="t-img">
+                            <div class="t-price-tag">${item.price}</div>
+                        </div>
+                        <div class="t-content">
+                            <h3 class="t-title">${item.title}</h3>
+                            <div class="t-features">${featuresHtml}</div>
+                            <div class="t-actions">
+                                <button class="btn-demo" onclick="openGallery(${index})">
+                                    <i class="far fa-images"></i> View Photos
+                                </button>
+                                <a href="contact.html" class="btn-buy">
+                                    <i class="fab fa-whatsapp"></i> Buy Now
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+        
+        // Initial Render
+        renderTemplates();
+
+        // --- GALLERY LOGIC ---
+        let currentIdx = 0;
+        let imgIdx = 0;
+        const modalImg = document.getElementById('modalImg');
+
+        function openGallery(index) {
+            currentIdx = index;
+            imgIdx = 0;
+            updateImage();
+            document.getElementById('photoModal').style.display = "flex";
+        }
+
+        function updateImage() {
+            modalImg.src = templates[currentIdx].gallery[imgIdx];
+        }
+
+        function nextImage() {
+            const len = templates[currentIdx].gallery.length;
+            imgIdx = (imgIdx + 1) % len;
+            updateImage();
+        }
+
+        function prevImage() {
+            const len = templates[currentIdx].gallery.length;
+            imgIdx = (imgIdx - 1 + len) % len;
+            updateImage();
+        }
+
+        // --- ADMIN, ADD & DELETE LOGIC ---
+        function openAdminLogin() {
+            if(isAdmin) {
+                // Already logged in, open add modal
+                document.getElementById('addModal').style.display = 'flex';
+            } else {
+                document.getElementById('loginModal').style.display = 'flex';
+            }
+        }
+
+        function checkLogin() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === "admin123") { 
+                isAdmin = true; // Set Admin Mode
+                renderTemplates(); // Refresh grid to show delete buttons
+                document.getElementById('loginModal').style.display = 'none';
+                document.getElementById('addModal').style.display = 'flex';
+            } else {
+                alert("Wrong Password!");
+            }
+        }
+
+        function addNewTemplate() {
+            const title = document.getElementById('newTitle').value;
+            const price = document.getElementById('newPrice').value;
+            const cover = document.getElementById('newCover').value;
+            const featuresRaw = document.getElementById('newFeatures').value;
+            const galleryRaw = document.getElementById('newGallery').value;
+
+            if(!title || !price || !cover) {
+                alert("Please fill basic details!");
+                return;
+            }
+
+            const newTemp = {
+                title: title,
+                price: price,
+                cover: cover,
+                features: featuresRaw.split(','),
+                gallery: galleryRaw.split(',')
+            };
+
+            templates.push(newTemp);
+            renderTemplates(); // Refresh Grid
+            
+            document.getElementById('addModal').style.display = 'none';
+            alert("Website Added Successfully!");
+            
+            // Clear Form
+            document.getElementById('newTitle').value = "";
+            document.getElementById('newPrice').value = "";
+        }
+
+        function deleteTemplate(index, event) {
+            event.stopPropagation(); // Stop clicking the image underneath
+            if(confirm("Are you sure you want to delete this website?")) {
+                templates.splice(index, 1); // Remove from array
+                renderTemplates(); // Refresh grid
+            }
+        }
+    </script>
+
+</body>
+</html>
