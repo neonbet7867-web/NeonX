@@ -302,6 +302,23 @@
             .stat-num { font-size: 3rem; }
 
             .footer-bottom { flex-direction: column; text-align: center; }
+
+            /* --- PORTFOLIO POPUP MOBILE FIXES --- */
+            .portfolio-content {
+                padding: 20px;      /* Reduced padding */
+                width: 95%;         /* Wider on mobile */
+                height: 80vh;       /* Fit better */
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* Single column */
+                gap: 20px;
+            }
+            .portfolio-header h2 {
+                font-size: 1.5rem;  /* Smaller title */
+            }
+            .close-btn {
+                font-size: 1.8rem;
+            }
         }
 
         @media (max-width: 480px) {
