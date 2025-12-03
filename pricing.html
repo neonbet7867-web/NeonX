@@ -31,6 +31,7 @@
             position: fixed; top: 0; width: 100%; padding: 1rem 10%; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid #e2e8f0;
+            transition: 0.3s;
         }
         .logo { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
         
@@ -38,6 +39,9 @@
         .nav-links a { margin-left: 25px; text-decoration: none; color: var(--secondary); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .hire-btn { background: var(--primary); color: white !important; padding: 10px 25px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3); }
+
+        /* Mobile Menu Icon */
+        #menu-icon { display: none; font-size: 1.8rem; color: var(--secondary); cursor: pointer; }
 
         /* --- HERO --- */
         .hero { padding: 140px 10% 80px; text-align: center; background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%); }
@@ -96,7 +100,7 @@
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; flex-direction: column; }
         .modal-content { max-width: 90%; max-height: 80vh; object-fit: contain; }
         .modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
-        .modal-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 50px; transform: translateY(-50%); }
+        .modal-nav { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; transform: translateY(-50%); }
         .modal-btn { background: rgba(255,255,255,0.2); color: white; padding: 15px; border-radius: 50%; cursor: pointer; border: none; font-size: 20px; }
 
         /* Admin Form Modal Styles */
@@ -112,13 +116,42 @@
 
         .admin-trigger { font-size: 0.8rem; color: #ccc; cursor: pointer; text-decoration: none; margin-top: 20px; display: inline-block; }
 
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
             header { padding: 1rem 5%; }
+            #menu-icon { display: block; z-index: 1001; }
+
+            .nav-links {
+                position: absolute;
+                top: 100%; left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                border-bottom: 1px solid #eee;
+                display: none;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { margin: 10px 0; width: 100%; font-size: 1.1rem; }
+            .hire-btn { width: 100%; text-align: center; display: inline-block; margin-top: 10px; }
+
+            .hero { padding: 120px 5% 60px; }
             .hero h1 { font-size: 2.2rem; }
-            .pricing-section, .catalog-section { padding: 50px 5%; }
+            
+            .pricing-section, .catalog-section, .cta-section { padding: 60px 5%; }
             .pricing-grid { grid-template-columns: 1fr; }
-            .price-card.popular { transform: scale(1); border: 2px solid var(--primary); }
+            .price-card.popular { transform: scale(1); }
+            
+            .template-grid { grid-template-columns: 1fr; }
+            
+            .cta-box { padding: 40px 20px; }
+            .whatsapp-btn { width: 100%; justify-content: center; }
+            
+            /* Modal Mobile Fixes */
+            .modal-content { max-width: 95%; }
+            .modal-nav { padding: 0 10px; }
         }
     </style>
 </head>
@@ -127,7 +160,11 @@
     <!-- HEADER -->
     <header>
         <a href="index.html" class="logo">DevStudio.</a>
-        <nav class="nav-links">
+        
+        <!-- Mobile Menu Icon -->
+        <i class="fas fa-bars" id="menu-icon" onclick="toggleMenu()"></i>
+
+        <nav class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="pricing.html" class="active">Pricing</a>
@@ -241,6 +278,22 @@
 
     <!-- SCRIPT -->
     <script>
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.getElementById('menu-icon');
+            nav.classList.toggle('active');
+            
+            // Toggle Icon
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
         // --- DATA SECTION ---
         let templates = [
             {
@@ -264,7 +317,7 @@
             }
         ];
 
-        let isAdmin = false; // State to track login
+        let isAdmin = false; 
 
         // --- RENDER FUNCTION ---
         const grid = document.getElementById('templateGrid');
@@ -274,7 +327,6 @@
             templates.forEach((item, index) => {
                 let featuresHtml = item.features.map(f => `<span class="t-badge">${f.trim()}</span>`).join('');
                 
-                // Show delete button only if Admin
                 let deleteBtnHtml = isAdmin ? 
                     `<button class="delete-btn" style="display:block" onclick="deleteTemplate(${index}, event)">
                         <i class="fas fa-trash"></i>
@@ -306,7 +358,6 @@
             });
         }
         
-        // Initial Render
         renderTemplates();
 
         // --- GALLERY LOGIC ---
@@ -337,10 +388,9 @@
             updateImage();
         }
 
-        // --- ADMIN, ADD & DELETE LOGIC ---
+        // --- ADMIN LOGIC ---
         function openAdminLogin() {
             if(isAdmin) {
-                // Already logged in, open add modal
                 document.getElementById('addModal').style.display = 'flex';
             } else {
                 document.getElementById('loginModal').style.display = 'flex';
@@ -350,8 +400,8 @@
         function checkLogin() {
             const pass = document.getElementById('adminPass').value;
             if (pass === "admin123") { 
-                isAdmin = true; // Set Admin Mode
-                renderTemplates(); // Refresh grid to show delete buttons
+                isAdmin = true; 
+                renderTemplates(); 
                 document.getElementById('loginModal').style.display = 'none';
                 document.getElementById('addModal').style.display = 'flex';
             } else {
@@ -380,25 +430,21 @@
             };
 
             templates.push(newTemp);
-            renderTemplates(); // Refresh Grid
-            
+            renderTemplates();
             document.getElementById('addModal').style.display = 'none';
             alert("Website Added Successfully!");
             
-            // Clear Form
             document.getElementById('newTitle').value = "";
             document.getElementById('newPrice').value = "";
         }
 
         function deleteTemplate(index, event) {
-            event.stopPropagation(); // Stop clicking the image underneath
+            event.stopPropagation();
             if(confirm("Are you sure you want to delete this website?")) {
-                templates.splice(index, 1); // Remove from array
-                renderTemplates(); // Refresh grid
+                templates.splice(index, 1);
+                renderTemplates();
             }
         }
     </script>
-
 </body>
 </html>
-```

@@ -35,11 +35,17 @@
             background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
             display: flex; justify-content: space-between; align-items: center; 
             box-shadow: 0 2px 15px rgba(0,0,0,0.03); z-index: 1000; 
+            transition: 0.3s;
         }
         .logo { font-size: 1.6rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        
+        .navbar { display: flex; align-items: center; }
         .navbar a { margin-left: 20px; text-decoration: none; color: var(--text-dark); font-weight: 500; transition: 0.3s; }
         .navbar a:hover, .navbar a.active { color: var(--primary); }
         .nav-cta { background: var(--primary); color: white !important; padding: 8px 20px; border-radius: 50px; }
+
+        /* Mobile Menu Icon (Hidden on Desktop) */
+        #menu-icon { display: none; font-size: 1.8rem; color: var(--text-dark); cursor: pointer; }
 
         /* --- 2. HERO SECTION (Model Style) --- */
         .hero-section {
@@ -50,7 +56,6 @@
             justify-content: space-between;
             background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
             overflow: hidden;
-            gap: 40px;
         }
         
         /* Left Content */
@@ -70,7 +75,7 @@
         .hero-text p { font-size: 1.2rem; color: var(--text-gray); margin-bottom: 30px; font-weight: 300; }
         .hero-tags { font-size: 0.95rem; color: var(--text-dark); font-weight: 600; margin-bottom: 40px; letter-spacing: 1px; }
 
-        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn-group { display: flex; gap: 15px; }
         .btn-primary {
             padding: 15px 35px; background: var(--primary); color: white; border-radius: 50px;
             text-decoration: none; font-weight: 600; box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3); transition: 0.3s;
@@ -92,8 +97,7 @@
         .hero-img {
             width: 100%;
             max-width: 500px;
-            height: auto;
-            max-height: 600px;
+            height: 600px;
             object-fit: cover;
             /* Premium Rounded Corner Style */
             border-radius: 40px; 
@@ -203,16 +207,63 @@
         }
         .final-cta h2 { font-size: 2.5rem; margin-bottom: 30px; }
 
-        /* --- RESPONSIVE --- */
+        /* --- RESPONSIVE CSS (MOBILE OPTIMIZATION) --- */
         @media (max-width: 900px) {
-            .hero-section { flex-direction: column; padding-top: 100px; text-align: center; }
-            .hero-text { margin-bottom: 40px; }
+            /* Header & Nav */
+            header { padding: 1rem 5%; }
+            #menu-icon { display: block; z-index: 1001; }
+            
+            .navbar {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: white; border-top: 1px solid #f1f5f9;
+                flex-direction: column; align-items: flex-start;
+                padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                display: none; /* Hidden by default */
+            }
+            .navbar.active { display: flex; animation: fadeIn 0.3s ease; }
+            .navbar a { margin: 10px 0; width: 100%; font-size: 1.1rem; }
+            .nav-cta { display: inline-block; text-align: center; width: 100%; margin-top: 10px; }
+
+            /* Hero Section */
+            .hero-section { 
+                flex-direction: column; padding-top: 100px; 
+                text-align: center; padding-bottom: 50px; 
+            }
+            .hero-text { margin-bottom: 50px; order: 2; } /* Text below on mobile? or remove order to keep text top */
+            .hero-text { order: 1; } 
+            .hero-img-box { order: 2; margin-top: 30px; width: 100%; justify-content: center; }
+            
             .hero-text h1 { font-size: 2.5rem; }
-            .btn-group { justify-content: center; }
-            .hero-img-box { justify-content: center; width: 100%; }
-            .hero-img { height: auto; max-width: 350px; border-radius: 20px; }
+            .btn-group { justify-content: center; flex-wrap: wrap; }
+            
+            .hero-img { 
+                height: auto; width: 100%; 
+                border-radius: 20px; 
+                box-shadow: 10px 10px 0px rgba(37, 99, 235, 0.1); 
+            }
+
+            /* Sections Padding */
+            .about-section, .why-section, .services-section, .pricing-section, .form-section { padding: 60px 5%; }
+
+            /* Form */
             .form-wrapper { padding: 30px 20px; }
+            /* Force 2-column grids to be 1-column on mobile */
+            .form-wrapper form div[style*="grid"] { 
+                grid-template-columns: 1fr !important; 
+                gap: 15px !important; 
+            }
+
+            /* Footer */
+            .final-cta h2 { font-size: 2rem; }
         }
+
+        @media (max-width: 480px) {
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text p { font-size: 1rem; }
+            .btn-primary, .btn-outline { width: 100%; text-align: center; padding: 12px 20px; }
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -220,7 +271,11 @@
     <!-- NAVIGATION -->
     <header>
         <a href="index.html" class="logo">DevStudio.</a>
-        <nav class="navbar">
+        
+        <!-- Hamburger Menu Icon (Added for Mobile) -->
+        <i class="fas fa-bars" id="menu-icon" onclick="toggleMenu()"></i>
+
+        <nav class="navbar" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="hire.html" class="active nav-cta">Hire Me</a>
@@ -438,6 +493,23 @@
             <a href="#" class="btn-outline" style="border-color: rgba(255,255,255,0.3); color: white;"><i class="fab fa-whatsapp"></i> WhatsApp Me</a>
         </div>
     </section>
+
+    <!-- Menu Script -->
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.getElementById('menu-icon');
+            nav.classList.toggle('active');
+            
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    </script>
 
 </body>
 </html>

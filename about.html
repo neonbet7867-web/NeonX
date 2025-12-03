@@ -5,20 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me - Passionate Web Designer</title>
+    
+    <!-- Boxicons for Menu Icon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap');
         
         /* --- RESET & BASIC STYLES --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
-        body { line-height: 1.8; color: #333; background-color: #fcfcfc; }
+        body { line-height: 1.8; color: #333; background-color: #fcfcfc; overflow-x: hidden; }
         
-        /* --- HEADER (From your code) --- */
-        header { position: fixed; top: 0; width: 100%; padding: 1.2rem 10%; background: #fff; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; }
+        /* --- HEADER --- */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 1.2rem 10%; 
+            background: #fff; display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 1000; 
+            transition: 0.3s;
+        }
         .logo { font-size: 1.8rem; font-weight: 700; color: #2563eb; text-decoration: none; }
+        
+        .navbar { display: flex; align-items: center; }
         .navbar a { margin-left: 20px; text-decoration: none; color: #333; font-weight: 500; transition: 0.3s; }
         .navbar a:hover, .navbar a.active { color: #2563eb; }
         .hire-btn { background: #2563eb; color: white !important; padding: 10px 25px; border-radius: 5px; transition: 0.3s; }
         .hire-btn:hover { background: #1d4ed8; }
+
+        /* Mobile Menu Icon (Hidden on Desktop) */
+        #menu-icon { display: none; font-size: 2.2rem; color: #333; cursor: pointer; }
 
         /* --- COMMON SECTION STYLES --- */
         section { padding: 80px 10%; }
@@ -68,15 +82,55 @@
         .cta-btn { background: white; color: #2563eb; padding: 15px 40px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 1.1rem; transition: 0.3s; display: inline-block; }
         .cta-btn:hover { background: #f1f5f9; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .hero-headline { font-size: 2.5rem; }
+        /* --- MOBILE RESPONSIVE CSS --- */
+        @media (max-width: 900px) {
             header { padding: 1rem 5%; }
-            .navbar { display: none; }
+            #menu-icon { display: block; z-index: 1001; }
+            
+            .navbar {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: white; border-top: 1px solid #f1f5f9;
+                flex-direction: column; align-items: flex-start;
+                padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                display: none; /* Hidden by default */
+            }
+            .navbar.active { display: flex; animation: slideDown 0.3s ease; }
+            .navbar a { margin: 10px 0; width: 100%; display: block; font-size: 1.1rem; }
+            .hire-btn { width: 100%; text-align: center; margin-top: 10px; display: inline-block; }
+
+            /* Sections Padding */
             section { padding: 60px 5%; }
+            
+            /* Hero */
+            .hero-section { padding-top: 120px; }
+            .hero-headline { font-size: 2.5rem; }
+            .hero-sub { font-size: 1.1rem; }
+            
+            /* Stats */
+            .stats-container { gap: 15px; }
+            .stat-box { width: 100%; justify-content: center; }
+
+            /* Journey Text */
             .story-text { padding: 25px; }
-            .process-step { flex-direction: column; }
+            
+            /* Skills Grid */
+            .grid-3 { grid-template-columns: 1fr; }
+            
+            /* Process */
+            .process-step { flex-direction: column; text-align: center; align-items: center; }
+            .step-content p { text-align: center; }
+
+            /* CTA */
+            .cta-box { padding: 40px 20px; }
+            .cta-box h2 { font-size: 1.8rem; }
         }
+
+        @media (max-width: 480px) {
+            .hero-headline { font-size: 2.2rem; }
+            .section-title { font-size: 1.8rem; }
+        }
+        
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -84,7 +138,11 @@
     <!-- 1️⃣ HEADER -->
     <header>
         <a href="index.html" class="logo">DevStudio.</a>
-        <nav class="navbar">
+        
+        <!-- Mobile Toggle Icon -->
+        <i class='bx bx-menu' id="menu-icon" onclick="toggleMenu()"></i>
+
+        <nav class="navbar" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html" class="active">About</a>
             <a href="pricing.html">Pricing</a>
@@ -280,6 +338,23 @@
             <a href="contact.html" class="cta-btn">Contact Me Today</a>
         </div>
     </section>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.getElementById('menu-icon');
+            nav.classList.toggle('active');
+            
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('bx-menu');
+                icon.classList.add('bx-x');
+            } else {
+                icon.classList.remove('bx-x');
+                icon.classList.add('bx-menu');
+            }
+        }
+    </script>
 
 </body>
 </html>

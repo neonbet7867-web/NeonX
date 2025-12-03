@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +27,7 @@
         
         body { background-color: #f1f5f9; color: var(--text-dark); overflow-x: hidden; }
         
-        /* --- HEADER (Based on your code) --- */
+        /* --- HEADER --- */
         header { 
             position: fixed; top: 0; width: 100%; padding: 1rem 5%; 
             background: rgba(255, 255, 255, 0.95); 
@@ -36,13 +35,18 @@
             display: flex; justify-content: space-between; align-items: center; 
             box-shadow: 0 2px 15px rgba(0,0,0,0.05); 
             z-index: 1000; 
+            transition: 0.3s;
         }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        
         .navbar { display: flex; align-items: center; }
         .navbar a { margin-left: 20px; text-decoration: none; color: var(--text-dark); font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .navbar a:hover, .navbar a.active { color: var(--primary); }
         .hire-btn { background: var(--primary); color: white !important; padding: 10px 24px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2); }
         .hire-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+        /* Mobile Menu Icon (Hidden on Desktop) */
+        #menu-icon { display: none; font-size: 1.8rem; color: var(--text-dark); cursor: pointer; }
 
         /* --- HERO SECTION --- */
         .hero-section {
@@ -195,14 +199,52 @@
         }
         .cta-btn:hover { background: #20bd5a; transform: scale(1.05); }
 
-        /* --- RESPONSIVE --- */
+        /* --- MOBILE RESPONSIVE CSS --- */
         @media (max-width: 900px) {
-            .container { grid-template-columns: 1fr; }
-            .hero-section { padding-top: 120px; }
-            .navbar { display: none; } /* Add toggle logic if needed, hiding for simplicity in this snippet */
-            header { justify-content: center; }
-            .logo { position: absolute; left: 20px; }
+            /* Header & Nav */
+            header { padding: 1rem 5%; }
+            #menu-icon { display: block; z-index: 1001; }
+            
+            .navbar {
+                position: absolute; top: 100%; left: 0; width: 100%;
+                background: white; border-top: 1px solid #f1f5f9;
+                flex-direction: column; align-items: flex-start;
+                padding: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                display: none; /* Hidden by default */
+            }
+            .navbar.active { display: flex; animation: fadeIn 0.3s ease; }
+            .navbar a { margin: 10px 0; width: 100%; display: block; font-size: 1.1rem; }
+            .hire-btn { width: 100%; text-align: center; margin-top: 10px; display: inline-block; }
+
+            /* Sections & Hero */
+            .hero-section { padding-top: 120px; padding-bottom: 50px; }
+            .hero-section h1 { font-size: 2.2rem; }
+            
+            /* Main Grid (Stacking Form and Info) */
+            .container { grid-template-columns: 1fr; gap: 40px; }
+            
+            /* Form Stacking (Internal Grids) */
+            .contact-form-wrapper { padding: 30px 20px; }
+            /* Force the inline grid styles to stack */
+            .contact-form-wrapper form div[style*="grid"] { 
+                grid-template-columns: 1fr !important; 
+                gap: 15px !important; 
+            }
+
+            /* Benefits Grid */
+            .benefits-grid { grid-template-columns: 1fr; }
+            
+            /* Spacing */
+            .why-section, .faq-section { padding: 60px 5%; }
+            .cta-section h2 { font-size: 2rem; }
         }
+
+        @media (max-width: 480px) {
+            .hero-section h1 { font-size: 2rem; }
+            .hero-section p { font-size: 1rem; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -210,7 +252,11 @@
     <!-- 1. HEADER -->
     <header>
         <a href="index.html" class="logo">DevStudio.</a>
-        <nav class="navbar">
+        
+        <!-- Mobile Menu Icon -->
+        <i class="fas fa-bars" id="menu-icon" onclick="toggleMenu()"></i>
+
+        <nav class="navbar" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="pricing.html">Pricing</a>
@@ -236,6 +282,7 @@
                     <input type="text" placeholder="John Doe">
                 </div>
                 
+                <!-- This grid will stack on mobile via CSS override -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Email Address</label>
@@ -427,6 +474,24 @@
         <p>Ready to take your business online? Let's discuss your project.</p>
         <a href="#" class="cta-btn"><i class="fab fa-whatsapp"></i> WhatsApp Now</a>
     </section>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.getElementById('menu-icon');
+            nav.classList.toggle('active');
+            
+            // Toggle Icon
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    </script>
 
 </body>
 </html>
