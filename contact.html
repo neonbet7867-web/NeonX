@@ -279,25 +279,25 @@
             <form>
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" placeholder="John Doe">
+                    <input type="text" id="contact-name" placeholder="John Doe">
                 </div>
                 
                 <!-- This grid will stack on mobile via CSS override -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" placeholder="john@example.com">
+                        <input type="email" id="contact-email" placeholder="john@example.com">
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" placeholder="+91 98765 43210">
+                        <input type="tel" id="contact-phone" placeholder="+91 98765 43210">
                     </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div class="form-group">
                         <label>Budget Range</label>
-                        <select>
+                        <select id="contact-budget">
                             <option>Select Budget</option>
                             <option>₹299 - ₹500</option>
                             <option>₹500 - ₹1500</option>
@@ -306,7 +306,7 @@
                     </div>
                     <div class="form-group">
                         <label>Project Type</label>
-                        <select>
+                        <select id="contact-type">
                             <option>Select Type</option>
                             <option>Portfolio Website</option>
                             <option>E-Commerce</option>
@@ -318,10 +318,10 @@
 
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea rows="5" placeholder="Tell me about your project details..."></textarea>
+                    <textarea rows="5" id="contact-message" placeholder="Tell me about your project details..."></textarea>
                 </div>
 
-                <button type="button" class="submit-btn" onclick="alert('Thank you! I will contact you soon.')">Send Message</button>
+                <button type="button" class="submit-btn" onclick="sendToWhatsapp()">Send Message</button>
             </form>
         </div>
 
@@ -333,7 +333,7 @@
                 <div class="info-text">
                     <h4>Chat on WhatsApp</h4>
                     <p>Fastest response time</p>
-                    <a href="#">+91 9376917149</a>
+                    <a href="https://wa.me/919376917149" target="_blank">+91 9376917149</a>
                 </div>
             </div>
             <!-- Card 2 -->
@@ -342,7 +342,7 @@
                 <div class="info-text">
                     <h4>Email Support</h4>
                     <p>Send project briefs</p>
-                    <a href="mailto:hello@devstudio.com">as90241074@gmail.com</a>
+                    <a href="mailto:as90241074@gmail.com">as90241074@gmail.com</a>
                 </div>
             </div>
             <!-- Card 3 -->
@@ -351,7 +351,7 @@
                 <div class="info-text">
                     <h4>Call Me</h4>
                     <p>Mon-Fri, 9am - 6pm</p>
-                    <a href="#">+91 9376917149</a>
+                    <a href="tel:919376917149">+91 9376917149</a>
                 </div>
             </div>
             
@@ -472,11 +472,12 @@
     <section class="cta-section">
         <h2>Start Your Website Today</h2>
         <p>Ready to take your business online? Let's discuss your project.</p>
-        <a href="#" class="cta-btn"><i class="fab fa-whatsapp"></i> WhatsApp Now</a>
+        <a href="https://wa.me/919376917149" class="cta-btn"><i class="fab fa-whatsapp"></i> WhatsApp Now</a>
     </section>
 
-    <!-- Mobile Menu Script -->
+    <!-- Scripts -->
     <script>
+        // Mobile Menu Script
         function toggleMenu() {
             const nav = document.getElementById('navLinks');
             const icon = document.getElementById('menu-icon');
@@ -490,6 +491,40 @@
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
             }
+        }
+
+        // WhatsApp Form Script
+        function sendToWhatsapp() {
+            // Get values from inputs
+            // Note: I added IDs to inputs (contact-name, etc) to ensure accuracy
+            var name = document.getElementById('contact-name').value;
+            var email = document.getElementById('contact-email').value;
+            var phone = document.getElementById('contact-phone').value;
+            var message = document.getElementById('contact-message').value;
+
+            // Optional: Get Select values
+            var budget = document.getElementById('contact-budget').value;
+            var type = document.getElementById('contact-type').value;
+
+            // Validation
+            if (name === "" || email === "" || phone === "" || message === "") {
+                alert("Please fill in Name, Email, Phone, and Message fields.");
+                return;
+            }
+
+            // Construct WhatsApp Message
+            var whatsappMessage = "Name: " + name + "%0A" +
+                                  "Email: " + email + "%0A" +
+                                  "Phone: " + phone + "%0A" +
+                                  "Budget: " + budget + "%0A" +
+                                  "Project Type: " + type + "%0A" +
+                                  "Message: " + message;
+
+            // Open WhatsApp
+            var myNumber = "919376917149"; 
+            var url = "https://wa.me/" + myNumber + "?text=" + whatsappMessage;
+
+            window.open(url, '_blank').focus();
         }
     </script>
 

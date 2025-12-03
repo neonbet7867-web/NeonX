@@ -192,7 +192,8 @@
                     <li><i class="fas fa-check"></i> Mobile Responsive</li>
                     <li><i class="fas fa-check"></i> Contact Button</li>
                 </ul>
-                <a href="contact.html" class="btn-full">Choose Starter</a>
+                <!-- WhatsApp Link Added -->
+                <a href="https://wa.me/919376917149?text=Hello,%20I%20am%20interested%20in%20the%20Starter%20Plan%20(₹499)." target="_blank" class="btn-full">Choose Starter</a>
             </div>
             <div class="price-card popular">
                 <h3 class="plan-name">Professional</h3>
@@ -202,7 +203,8 @@
                     <li><i class="fas fa-check"></i> Basic SEO</li>
                     <li><i class="fas fa-check"></i> Contact Form</li>
                 </ul>
-                <a href="contact.html" class="btn-full" style="background:var(--primary)">Choose Professional</a>
+                <!-- WhatsApp Link Added -->
+                <a href="https://wa.me/919376917149?text=Hello,%20I%20am%20interested%20in%20the%20Professional%20Plan%20(₹1,599)." target="_blank" class="btn-full" style="background:var(--primary)">Choose Professional</a>
             </div>
             <div class="price-card">
                 <h3 class="plan-name">Premium</h3>
@@ -212,7 +214,8 @@
                     <li><i class="fas fa-check"></i> Animations</li>
                     <li><i class="fas fa-check"></i> Speed Boost</li>
                 </ul>
-                <a href="contact.html" class="btn-full">Choose Premium</a>
+                <!-- WhatsApp Link Added -->
+                <a href="https://wa.me/919376917149?text=Hello,%20I%20am%20interested%20in%20the%20Premium%20Plan%20(₹4,000)." target="_blank" class="btn-full">Choose Premium</a>
             </div>
         </div>
     </section>
@@ -231,7 +234,8 @@
         <div class="cta-box">
             <h2>Start Your Website Today</h2>
             <p>Ready to take your business online?</p>
-            <a href="contact.html" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+            <!-- WhatsApp Link Added -->
+            <a href="https://wa.me/919376917149?text=Hello,%20I%20want%20to%20discuss%20a%20new%20website%20project." target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
         </div>
         
         <!-- HIDDEN ADMIN BUTTON -->
@@ -333,6 +337,11 @@
                      </button>` 
                     : '';
 
+                // WhatsApp Logic
+                let waNumber = "919376917149";
+                let waMessage = `Hello, I want to buy the "${item.title}" website template for ${item.price}. Please provide me more details.`;
+                let waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMessage)}`;
+
                 let card = `
                     <div class="template-card">
                         ${deleteBtnHtml}
@@ -347,7 +356,7 @@
                                 <button class="btn-demo" onclick="openGallery(${index})">
                                     <i class="far fa-images"></i> View Photos
                                 </button>
-                                <a href="contact.html" class="btn-buy">
+                                <a href="${waLink}" target="_blank" class="btn-buy">
                                     <i class="fab fa-whatsapp"></i> Buy Now
                                 </a>
                             </div>
